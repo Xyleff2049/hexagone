@@ -131,10 +131,10 @@ while user == 1:
 				pygame.image.save(Window, 'screen.png')
 				print('[== Screenshot "screen.png" ==]')
 
-			if event.key == K_KP4 and selectX > 0: selectX -= 50
-			if event.key == K_KP6 and selectX < 350: selectX += 50
-			if event.key == K_KP8 and selectY > 0: selectY -= 50
-			if event.key == K_KP5 and selectY < 350: selectY += 50
+			if event.key == K_KP4 and selectX > 25: selectX -= 50
+			if event.key == K_KP6 and selectX < 325: selectX += 50
+			if event.key == K_KP8 and selectY > 25: selectY -= 50
+			if event.key == K_KP5 and selectY < 325: selectY += 50
 
 			if event.key == K_KP7 and selectX > 0 and selectY > 0:
 				selectX -= 25
@@ -142,7 +142,7 @@ while user == 1:
 			if event.key == K_KP9 and selectX < 350 and selectY > 0:
 				selectX += 25
 				selectY -= 25
-			if event.key == K_KP1 and selectX > 0 and selectY < 50:
+			if event.key == K_KP1 and selectX > 0 and selectY < 350:
 				selectX -= 25
 				selectY += 25
 			if event.key == K_KP3 and selectY < 350 and selectX < 350:
