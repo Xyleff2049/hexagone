@@ -92,11 +92,12 @@ def displaySelector(window, pos):
 	window.blit(listLosange[3], pos)
 
 # { Exemple } #
+def displaySelector2(window, pos):
+	(x,y)=pos
+	window.blit(select2,pos)
 
 pygame.init()
 pygame.display.init()
-pygame.key.set_repeat(150,150)
-
 pygame.key.set_repeat(150,150)
 
 Window = pygame.display.set_mode((400,480))
@@ -107,9 +108,12 @@ tilesetLosange = pygame.image.load('TilesetLosange.png')
 listLosange = [tilesetLosange.subsurface(0,0, 50,50), tilesetLosange.subsurface(50,0, 50,50), tilesetLosange.subsurface(100,0, 50,50), tilesetLosange.subsurface(150,0, 50,50)]
 
 spellbar= pygame.image.load("bar.png")
+select2= pygame.image.load("selec2.png").convert_alpha()
+
 generateMap(Window, listLosange)
 displayMap(Window)
-Window.blit(spellbar, (100,400))
+
+
 
 (selectX,selectY) = (0,0)
 (selectX2,selectY2) = (100,400)
@@ -152,10 +156,10 @@ while user == 1:
 				selectX += 25
 				selectY += 25
 
-			if event.key == K_a: (selectX2,selectY2) = (100,400)
-			if event.key == K_z: (selectX2,selectY2) = (150,400)
+			if event.key == K_q: (selectX2,selectY2) = (100,400)
+			if event.key == K_w: (selectX2,selectY2) = (150,400)
 			if event.key == K_e: (selectX2,selectY2) = (200,400)
-
+			if event.key == K_r: (selectX2,selectY2) = (250,400)
 		# if event.type == MOUSEMOTION:
 
 		# 	(xM, yM) = pygame.mouse.get_pos()
@@ -163,5 +167,7 @@ while user == 1:
 	Window.fill((81,91,90))
 	displayMap(Window)
 	displaySelector(Window, (selectX,selectY))
+	displaySelector2(Window, (selectX2,selectY2))
 	Window.blit(spellbar,(100,400))
+	Window.blit(select2,(selectX2,selectY2))
 	pygame.display.flip()
