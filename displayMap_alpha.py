@@ -19,7 +19,7 @@ class Tile:
 	listCoords = [] # list des coords des objets créés
 	listExternal = []
 
-	def __init__(self, sprite, xTile, yTile, external=False):
+	def __init__(self, sprite, xTile, yTile, external=False, selected=0):
 
 		if external == False:
 
@@ -27,6 +27,7 @@ class Tile:
 			self.y = yTile
 			self.sprite = sprite
 			self.external = external
+			self.selected=selected
 
 			Tile.length += 1
 
@@ -97,6 +98,18 @@ def displaySelector2(window, pos):
 	(x,y)=pos
 	window.blit(select2,pos)
 
+def selectionTile(pos):
+        (x,y)=pos
+        co=0
+        co=int(co)
+        i=0
+        for co in Tile.listCoords:
+                if (x,y) == co:
+                        Tile.list[i].selected=1
+                        print(Tile.list[i].selected)
+                i+=1
+
+
 pygame.init()
 pygame.display.init()
 pygame.key.set_repeat(150,150)
@@ -128,7 +141,7 @@ while user == 1:
 			if event.key == K_ESCAPE: quit()
 			if event.key == K_RETURN: user = 0
 			if event.key == K_F1:
-				pygame.display.set_mode((400,400), FULLSCREEN)
+				pygame.display.set_mode((400,480), FULLSCREEN)
 				generateMap(Window, listLosange)
 			if event.key == K_F2:
 				pygame.display.set_mode((400,400))
@@ -159,6 +172,10 @@ while user == 1:
 			if event.key == K_w: (selectX2,selectY2) = (150,400)
 			if event.key == K_e: (selectX2,selectY2) = (200,400)
 			if event.key == K_r: (selectX2,selectY2) = (250,400)
+
+			if event.key == K_KP0:
+				selectionTile((selectX,selectY))
+			
 		# if event.type == MOUSEMOTION:
 
 		# 	(xM, yM) = pygame.mouse.get_pos()
