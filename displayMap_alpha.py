@@ -93,6 +93,7 @@ def displaySelector(window, pos):
 
 # { Exemple } #
 def displaySelector2(window, pos):
+
 	(x,y)=pos
 	window.blit(select2,pos)
 
@@ -112,8 +113,6 @@ select2= pygame.image.load("selec2.png").convert_alpha()
 
 generateMap(Window, listLosange)
 displayMap(Window)
-
-
 
 (selectX,selectY) = (0,0)
 (selectX2,selectY2) = (100,400)
@@ -163,7 +162,6 @@ while user == 1:
 		# if event.type == MOUSEMOTION:
 
 		# 	(xM, yM) = pygame.mouse.get_pos()
-
 	Window.fill((81,91,90))
 	displayMap(Window)
 	displaySelector(Window, (selectX,selectY))
