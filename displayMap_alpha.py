@@ -121,8 +121,8 @@ pygame.display.set_caption('} Display Map Alpha {')
 tilesetLosange = pygame.image.load('TilesetLosange.png')
 listLosange = [tilesetLosange.subsurface(0,0, 50,50), tilesetLosange.subsurface(50,0, 50,50), tilesetLosange.subsurface(100,0, 50,50), tilesetLosange.subsurface(150,0, 50,50)]
 
-spellbar= pygame.image.load("bar.png")
-select2= pygame.image.load("selec2.png").convert_alpha()
+spellbar = pygame.image.load("bar.png")
+select2 = pygame.image.load("selec2.png").convert_alpha()
 
 generateMap(Window, listLosange)
 displayMap(Window)
