@@ -19,7 +19,7 @@ class Tile:
 	listCoords = [] # list des coords des objets créés
 	listExternal = []
 
-	def __init__(self, sprite, xTile, yTile, external=False, selected=0):
+	def __init__(self, sprite, xTile, yTile, external=False, selected=False):
 
 		if external == False:
 
@@ -27,7 +27,7 @@ class Tile:
 			self.y = yTile
 			self.sprite = sprite
 			self.external = external
-			self.selected=selected
+			self.selected = selected
 
 			Tile.length += 1
 
@@ -92,23 +92,22 @@ def displaySelector(window, pos):
 	(x,y) = pos
 	window.blit(listLosange[3], pos)
 
-# { Exemple } #
-def displaySelector2(window, pos):
+def displayBarSelector(window, pos):
 
-	(x,y)=pos
-	window.blit(select2,pos)
+	(x,y) = pos
+	window.blit(barSelector,pos)
 
 def selectionTile(pos):
-        (x,y)=pos
-        co=0
-        co=int(co)
-        i=0
-        for co in Tile.listCoords:
-                if (x,y) == co:
-                        Tile.list[i].selected=1
-                        print(Tile.list[i].selected)
-                i+=1
 
+	(x,y) = pos
+	i = 0
+	for coord in Tile.listCoords:
+		if (x,y) == coord:
+				Tile.list[i].selected = True
+				print(Tile.list[i].selected)
+		i += 1
+
+# { Exemple } #
 
 pygame.init()
 pygame.display.init()
@@ -121,14 +120,14 @@ pygame.display.set_caption('} Display Map Alpha {')
 tilesetLosange = pygame.image.load('TilesetLosange.png')
 listLosange = [tilesetLosange.subsurface(0,0, 50,50), tilesetLosange.subsurface(50,0, 50,50), tilesetLosange.subsurface(100,0, 50,50), tilesetLosange.subsurface(150,0, 50,50)]
 
-spellbar = pygame.image.load("bar.png")
-select2 = pygame.image.load("selec2.png").convert_alpha()
+spellBar = pygame.image.load("bar.png")
+barSelector = pygame.image.load("selec2.png").convert_alpha()
 
 generateMap(Window, listLosange)
 displayMap(Window)
 
 (selectX,selectY) = (0,0)
-(selectX2,selectY2) = (100,400)
+(barSelectX,barSelectY) = (100,400)
 
 user = 1
 while user == 1:
@@ -150,39 +149,48 @@ while user == 1:
 				pygame.image.save(Window, 'screen.png')
 				print('[== Screenshot "screen.png" ==]')
 
-			if event.key == K_KP4 and selectX > 25: selectX -= 50
-			if event.key == K_KP6 and selectX < 325: selectX += 50
-			if event.key == K_KP8 and selectY > 25: selectY -= 50
-			if event.key == K_KP5 and selectY < 325: selectY += 50
+			if event.key == K_KP4 and selectX > 25:
+				selectX -= 50
+				selectionTile((selectX,selectY))
+			if event.key == K_KP6 and selectX < 325:
+				selectX += 50
+				selectionTile((selectX,selectY))
+			if event.key == K_KP8 and selectY > 25:
+				selectY -= 50
+				selectionTile((selectX,selectY))
+			if event.key == K_KP5 and selectY < 325:
+				selectY += 50
+				selectionTile((selectX,selectY))
 
 			if event.key == K_KP7 and selectX > 0 and selectY > 0:
 				selectX -= 25
 				selectY -= 25
+				selectionTile((selectX,selectY))
 			if event.key == K_KP9 and selectX < 350 and selectY > 0:
 				selectX += 25
 				selectY -= 25
+				selectionTile((selectX,selectY))
 			if event.key == K_KP1 and selectX > 0 and selectY < 350:
 				selectX -= 25
 				selectY += 25
+				selectionTile((selectX,selectY))
 			if event.key == K_KP3 and selectY < 350 and selectX < 350:
 				selectX += 25
 				selectY += 25
-
-			if event.key == K_q: (selectX2,selectY2) = (100,400)
-			if event.key == K_w: (selectX2,selectY2) = (150,400)
-			if event.key == K_e: (selectX2,selectY2) = (200,400)
-			if event.key == K_r: (selectX2,selectY2) = (250,400)
-
-			if event.key == K_KP0:
 				selectionTile((selectX,selectY))
-			
-		# if event.type == MOUSEMOTION:
 
-		# 	(xM, yM) = pygame.mouse.get_pos()
+			if event.key == K_q: (barSelectX,barSelectY) = (100,400)
+			if event.key == K_w: (barSelectX,barSelectY) = (150,400)
+			if event.key == K_e: (barSelectX,barSelectY) = (200,400)
+			if event.key == K_r: (barSelectX,barSelectY) = (250,400)
+			
 	Window.fill((81,91,90))
+
 	displayMap(Window)
 	displaySelector(Window, (selectX,selectY))
-	displaySelector2(Window, (selectX2,selectY2))
-	Window.blit(spellbar,(100,400))
-	Window.blit(select2,(selectX2,selectY2))
+	displayBarSelector(Window, (barSelectX,barSelectY))
+
+	Window.blit(spellBar,(100,400))
+	Window.blit(barSelector,(barSelectX,barSelectY))
+
 	pygame.display.flip()
