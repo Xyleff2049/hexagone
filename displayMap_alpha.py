@@ -188,14 +188,10 @@ while user == 1:
 			(xM, yM) = pygame.mouse.get_pos()
 			
 			for (x,y) in Tile.listCoords:
-				xLT = x + 20
-				yLT = y + 20
-				xRB = xLT + 30
-				yRB = yLT + 30
 
-				if xLT <= xM <= xRB and yLT <= yM <= yRB:
-					selectX = x
-					selectY = y
+				if (x + 20) <= xM <= (x + 50) and (y + 20) <= yM <= (y + 50):
+					(selectX, selectY) = (x,y)
+					selectionTile((x,y))
 			
 	Window.fill((81,91,90))
 
