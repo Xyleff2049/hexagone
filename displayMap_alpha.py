@@ -189,7 +189,7 @@ while user == 1:
 			
 			for (x,y) in Tile.listCoords:
 
-				if (x + 20) <= xM <= (x + 50) and (y + 20) <= yM <= (y + 50):
+				if (x + 10) <= xM <= (x + 40) and (y + 10) <= yM <= (y + 40):
 					(selectX, selectY) = (x,y)
 					selectionTile((x,y))
 			
