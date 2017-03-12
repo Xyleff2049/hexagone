@@ -46,11 +46,13 @@ class Army:				#la class army contient tout les objets de types unités
 	listArmy = [] 		#stocke toutes les unités déployées sur le terrain
 	armylenght = 0 		#nombre d'unités aliées présentes sur le terrain
 
-	def __init__(self, sprite, xArmy, yArmy, vs = False):
+	def __init__(self, sprite, xArmy, yArmy, posArmy, vs = False):
 		self.sprite = sprite
 		self.x = xArmy
 		self.y = yArmy
 		self.vs = vs
+		self.posArmy=posArmy
+
 		if vs == False:
 			Army.armylenght += 1
 			Army.listArmy.append(self)
@@ -114,6 +116,8 @@ def displayBarSelector(window, pos):
 	(x,y) = pos
 	window.blit(barSelector,pos)
 
+#def convertCoordToTile à faire
+
 def createArmy(pos):
 
 	(x,y) = pos
@@ -121,20 +125,23 @@ def createArmy(pos):
 	for coord in Tile.listCoords:
 		if (x,y) == coord and Tile.list[i].selected == False:
 				Tile.list[i].selected = True
-				Army.listArmy.append( Army(warrior, xArmy=(x+20), yArmy=(y+20)) )
+				Army.listArmy.append( Army(warrior, xArmy=(x+20), yArmy=(y+20), posArmy=i) )
 		i += 1
 
 def displayArmy(window):
-	i=0
-	for army in Army.listArmy :
-		window.blit(Army.listArmy[i].sprite,(Army.listArmy[i].x,Army.listArmy[i].y))
-		i+=1
+        i=0
+        for army in Army.listArmy:
+                if Tile.list[Army.listArmy[i].posArmy].selected == True:
+                        window.blit(Army.listArmy[i].sprite,(Army.listArmy[i].x,Army.listArmy[i].y))
+                i+=1
+
 
 def clear(list):
 	i=0
 	for tile in range(len(Tile.list)) :
 		list[i].selected = False
 		i+=1
+        #ajouter la suppression de ListArmy
 
 # { Exemple } #
 
