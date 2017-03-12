@@ -150,38 +150,39 @@ while user == 1:
 
 			if event.key == K_KP4 and selectX > 25:
 				selectX -= 50
-				selectionTile((selectX,selectY))
+				
 			if event.key == K_KP6 and selectX < 325:
 				selectX += 50
-				selectionTile((selectX,selectY))
+				
 			if event.key == K_KP8 and selectY > 25:
 				selectY -= 50
-				selectionTile((selectX,selectY))
+				
 			if event.key == K_KP5 and selectY < 325:
 				selectY += 50
-				selectionTile((selectX,selectY))
 
 			if event.key == K_KP7 and selectX > 0 and selectY > 0:
 				selectX -= 25
 				selectY -= 25
-				selectionTile((selectX,selectY))
+				
 			if event.key == K_KP9 and selectX < 350 and selectY > 0:
 				selectX += 25
 				selectY -= 25
-				selectionTile((selectX,selectY))
+				
 			if event.key == K_KP1 and selectX > 0 and selectY < 350:
 				selectX -= 25
 				selectY += 25
-				selectionTile((selectX,selectY))
+				
 			if event.key == K_KP3 and selectY < 350 and selectX < 350:
 				selectX += 25
 				selectY += 25
-				selectionTile((selectX,selectY))
 
 			if event.key == K_q: (barSelectX,barSelectY) = (100,400)
 			if event.key == K_w: (barSelectX,barSelectY) = (150,400)
 			if event.key == K_e: (barSelectX,barSelectY) = (200,400)
 			if event.key == K_r: (barSelectX,barSelectY) = (250,400)
+
+			if event.key == K_KP0:
+				selectionTile((selectX,selectY))
 
 		if event.type == MOUSEMOTION:
 
@@ -191,7 +192,9 @@ while user == 1:
 
 				if (x + 10) <= xM <= (x + 40) and (y + 10) <= yM <= (y + 40):
 					(selectX, selectY) = (x,y)
-					selectionTile((x,y))
+		if event.type == MOUSEBUTTONDOWN and event.button == 1:
+			selectionTile((selectX,selectY))
+
 			
 	Window.fill((81,91,90))
 
