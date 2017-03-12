@@ -2,7 +2,7 @@
 from pygame.locals import *
 from loading import *
 import pygame
-
+import os
 # { Class } #
 
 # ╔════════════════════════════════════════════════════════════════╗ #
@@ -19,7 +19,7 @@ class Tile:
 	listCoords = [] # list des coords des objets créés
 	listExternal = []
 
-	def __init__(self, sprite, xTile, yTile, external=False, selected=False):
+	def __init__(self, sprite, xTile, yTile, army=False, external=False, selected=False):
 
 		if external == False:
 
@@ -28,6 +28,7 @@ class Tile:
 			self.sprite = sprite
 			self.external = external
 			self.selected = selected
+			self.army = army
 
 			Tile.length += 1
 
@@ -38,6 +39,22 @@ class Tile:
 			self.sprite = sprite
 			(self.x, self.y) = (xTile, yTile)
 			Tile.listExternal.append(self)
+
+
+class Army:				#la class army contient tout les objets de types unités
+
+	listArmy = [] 		#stocke toutes les unités déployées sur le terrain
+	armylenght = 0 		#nombre d'unités aliées présentes sur le terrain
+
+	def __init__(self, sprite, xArmy, yArmy, vs = False):
+		self.sprite = sprite
+		self.x = xArmy
+		self.y = yArmy
+		self.vs = vs
+		if vs == False:
+			Army.armylenght += 1
+			Army.listArmy.append(self)
+
 
 # { Fonctions }
 
@@ -97,14 +114,27 @@ def displayBarSelector(window, pos):
 	(x,y) = pos
 	window.blit(barSelector,pos)
 
-def selectionTile(pos):
+def createArmy(pos):
 
 	(x,y) = pos
 	i = 0
 	for coord in Tile.listCoords:
-		if (x,y) == coord:
+		if (x,y) == coord and Tile.list[i].selected == False:
 				Tile.list[i].selected = True
+				Army.listArmy.append( Army(warrior, xArmy=(x+20), yArmy=(y+20)) )
 		i += 1
+
+def displayArmy(window):
+	i=0
+	for army in Army.listArmy :
+		window.blit(Army.listArmy[i].sprite,(Army.listArmy[i].x,Army.listArmy[i].y))
+		i+=1
+
+def clear(list):
+	i=0
+	for tile in range(len(Tile.list)) :
+		list[i].selected = False
+		i+=1
 
 # { Exemple } #
 
@@ -122,9 +152,11 @@ listLosange = [tilesetLosange.subsurface(0,0, 50,50), tilesetLosange.subsurface(
 spellBar = pygame.image.load("bar.png")
 barSelector = pygame.image.load("selec2.png").convert_alpha()
 
+warrior= pygame.image.load("warrior.png")
+
 generateMap(Window, listLosange)
 displayMap(Window)
-
+displayArmy(Window)
 (selectX,selectY) = (0,0)
 (barSelectX,barSelectY) = (100,400)
 
@@ -182,7 +214,10 @@ while user == 1:
 			if event.key == K_r: (barSelectX,barSelectY) = (250,400)
 
 			if event.key == K_KP0:
-				selectionTile((selectX,selectY))
+				createArmy((selectX,selectY))
+
+			if event.key == K_t:
+				clear(Tile.list)
 
 		if event.type == MOUSEMOTION:
 
@@ -192,8 +227,9 @@ while user == 1:
 
 				if (x + 10) <= xM <= (x + 40) and (y + 10) <= yM <= (y + 40):
 					(selectX, selectY) = (x,y)
+
 		if event.type == MOUSEBUTTONDOWN and event.button == 1:
-			selectionTile((selectX,selectY))
+			createArmy((selectX,selectY))
 
 			
 	Window.fill((81,91,90))
@@ -201,7 +237,7 @@ while user == 1:
 	displayMap(Window)
 	displaySelector(Window, (selectX,selectY))
 	displayBarSelector(Window, (barSelectX,barSelectY))
-
+	displayArmy(Window)
 	Window.blit(spellBar,(100,400))
 	Window.blit(barSelector,(barSelectX,barSelectY))
 
