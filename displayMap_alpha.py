@@ -104,7 +104,6 @@ def selectionTile(pos):
 	for coord in Tile.listCoords:
 		if (x,y) == coord:
 				Tile.list[i].selected = True
-				print(Tile.list[i].selected)
 		i += 1
 
 # { Exemple } #
@@ -113,7 +112,7 @@ pygame.init()
 pygame.display.init()
 pygame.key.set_repeat(150,150)
 
-Window = pygame.display.set_mode((400,480))
+Window = pygame.display.set_mode((400,450))
 pygame.display.set_caption('} Display Map Alpha {')
 
 # sprite = pygame.image.load('losange.png')
@@ -140,10 +139,10 @@ while user == 1:
 			if event.key == K_ESCAPE: quit()
 			if event.key == K_RETURN: user = 0
 			if event.key == K_F1:
-				pygame.display.set_mode((400,480), FULLSCREEN)
+				pygame.display.set_mode((400,450), FULLSCREEN)
 				generateMap(Window, listLosange)
 			if event.key == K_F2:
-				pygame.display.set_mode((400,400))
+				pygame.display.set_mode((400,450))
 				generateMap(Window, listLosange)
 			if event.key == K_F5:
 				pygame.image.save(Window, 'screen.png')
@@ -183,6 +182,16 @@ while user == 1:
 			if event.key == K_w: (barSelectX,barSelectY) = (150,400)
 			if event.key == K_e: (barSelectX,barSelectY) = (200,400)
 			if event.key == K_r: (barSelectX,barSelectY) = (250,400)
+
+		if event.type == MOUSEMOTION:
+
+			(xM, yM) = pygame.mouse.get_pos()
+			
+			for (x,y) in Tile.listCoords:
+
+				if (x + 20) <= xM <= (x + 50) and (y + 20) <= yM <= (y + 50):
+					(selectX, selectY) = (x,y)
+					selectionTile((x,y))
 			
 	Window.fill((81,91,90))
 
