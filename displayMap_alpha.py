@@ -1,8 +1,11 @@
 # { Import } #
 from pygame.locals import *
 from loading import *
+from Objects import *
+from Functions import *
 import pygame
 import os
+
 # { Class } #
 
 # ╔════════════════════════════════════════════════════════════════╗ #
@@ -25,6 +28,7 @@ class Tile:
 
 			self.x = xTile
 			self.y = yTile
+			self.pos = (xTile, yTile)
 			self.sprite = sprite
 			self.external = external
 			self.selected = selected
@@ -57,7 +61,6 @@ class Army:				#la class army contient tout les objets de types unités
 			Army.armylenght += 1
 			Army.listArmy.append(self)
 
-
 # { Fonctions }
 
 def generateMap(window, listSprite, typeSprite="losange"):
@@ -82,15 +85,15 @@ def generateMap(window, listSprite, typeSprite="losange"):
 
 		if evenLine == False:
 			for x in range(x, maxX, spriteWidth):
-				if 0 <= x <= 360 and 0 <= y <= 360: Tile(listSprite[0], x, y)
-				else: Tile(listSprite[2], x, y, external=True)
+				if 0 <= x <= 360 and 0 <= y <= 360: Tile(listSprite[1], x, y)
+				else: Tile(listSprite[3], x, y, external=True)
 			x = -spriteWidth//2
 			evenLine = True
 
 		else:
 			for x in range(x, maxX, spriteWidth):
-				if 0 <= x <= 360 and 0 <= y <= 360: Tile(listSprite[0], x, y)
-				else: Tile(listSprite[2], x, y, external=True)
+				if 0 <= x <= 360 and 0 <= y <= 360: Tile(listSprite[1], x, y)
+				else: Tile(listSprite[3], x, y, external=True)
 			x = 0
 			evenLine = False
 
@@ -99,9 +102,9 @@ def generateMap(window, listSprite, typeSprite="losange"):
 def displayMap(window):
 
 	(x,y) = (0,0)
-	for i in range(len(Tile.list)):
-		(x,y) = Tile.listCoords[i]
-		window.blit(Tile.list[i].sprite, (x,y))
+	for elem in Tile.list:
+		(x,y) = (elem.x, elem.y)
+		window.blit(elem.sprite, (x,y))
 
 	for elem in Tile.listExternal:
 		window.blit(elem.sprite, (elem.x,elem.y))
@@ -109,7 +112,7 @@ def displayMap(window):
 def displaySelector(window, pos):
 
 	(x,y) = pos
-	window.blit(listLosange[3], pos)
+	window.blit(listLosange[4], pos)
 
 def displayBarSelector(window, pos):
 
@@ -125,23 +128,21 @@ def createArmy(pos):
 	for coord in Tile.listCoords:
 		if (x,y) == coord and Tile.list[i].selected == False:
 				Tile.list[i].selected = True
-				Army.listArmy.append( Army(warrior, xArmy=(x+20), yArmy=(y+20), posArmy=i) )
+				Army(warrior, (x+20), (y+20), i)
 		i += 1
 
 def displayArmy(window):
-        i=0
-        for army in Army.listArmy:
-                if Tile.list[Army.listArmy[i].posArmy].selected == True:
-                        window.blit(Army.listArmy[i].sprite,(Army.listArmy[i].x,Army.listArmy[i].y))
-                i+=1
-
+	i=0
+	for army in Army.listArmy:
+		if Tile.list[Army.listArmy[i].posArmy].selected == True:
+				window.blit(Army.listArmy[i].sprite,(Army.listArmy[i].x,Army.listArmy[i].y))
+		i+=1
 
 def clear(list):
 	i=0
-	for tile in range(len(Tile.list)) :
+	for tile in range(len(Tile.list)):
 		list[i].selected = False
 		i+=1
-        #ajouter la suppression de ListArmy
 
 # { Exemple } #
 
@@ -153,11 +154,11 @@ Window = pygame.display.set_mode((400,450))
 pygame.display.set_caption('} Display Map Alpha {')
 
 # sprite = pygame.image.load('losange.png')
-tilesetLosange = pygame.image.load('TilesetLosange.png')
-listLosange = [tilesetLosange.subsurface(0,0, 50,50), tilesetLosange.subsurface(50,0, 50,50), tilesetLosange.subsurface(100,0, 50,50), tilesetLosange.subsurface(150,0, 50,50)]
+tileset = pygame.image.load('Tileset.png')
+listLosange = [tileset.subsurface(0,0, 50,50), tileset.subsurface(50,0, 50,50), tileset.subsurface(100,0, 50,50), tileset.subsurface(150,0, 50,50), tileset.subsurface(50,100, 50,50)]
 
-spellBar = pygame.image.load("bar.png")
-barSelector = pygame.image.load("selec2.png").convert_alpha()
+spellBar = tileset.subsurface(0,50, 200,50)
+barSelector = tileset.subsurface(0,100, 50,50)
 
 warrior= pygame.image.load("warrior.png")
 
@@ -220,7 +221,7 @@ while user == 1:
 			if event.key == K_e: (barSelectX,barSelectY) = (200,400)
 			if event.key == K_r: (barSelectX,barSelectY) = (250,400)
 
-			if event.key == K_KP0:
+			if event.key == K_SPACE:
 				createArmy((selectX,selectY))
 
 			if event.key == K_t:
@@ -233,7 +234,7 @@ while user == 1:
 			for (x,y) in Tile.listCoords:
 
 				if (x + 10) <= xM <= (x + 40) and (y + 10) <= yM <= (y + 40):
-					(selectX, selectY) = (x,y)
+					(selectX, selectY) = (x,y)	
 
 		if event.type == MOUSEBUTTONDOWN and event.button == 1:
 			createArmy((selectX,selectY))
