@@ -4,7 +4,7 @@ from Objects import *
 
 # { Functions } #
 
-def genetateMap(Surface, listSprite):
+def generateMap(Surface, listSprite):
 
 	"""
 	Parameters :
