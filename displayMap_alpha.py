@@ -85,14 +85,14 @@ def generateMap(window, listSprite, typeSprite="losange"):
 
 		if evenLine == False:
 			for x in range(x, maxX, spriteWidth):
-				if 0 <= x <= 360 and 0 <= y <= 360: Tile(listSprite[1], x, y)
+				if 0 <= x <= maxX-40 and 0 <= y <= maxY-40: Tile(listSprite[1], x, y)
 				else: Tile(listSprite[3], x, y, external=True)
 			x = -spriteWidth//2
 			evenLine = True
 
 		else:
 			for x in range(x, maxX, spriteWidth):
-				if 0 <= x <= 360 and 0 <= y <= 360: Tile(listSprite[1], x, y)
+				if 0 <= x <= maxX-40 and 0 <= y <= maxY-40: Tile(listSprite[1], x, y)
 				else: Tile(listSprite[3], x, y, external=True)
 			x = 0
 			evenLine = False
@@ -150,7 +150,7 @@ pygame.init()
 pygame.display.init()
 pygame.key.set_repeat(150,150)
 
-Window = pygame.display.set_mode((400,450))
+Window = pygame.display.set_mode((800,850))
 pygame.display.set_caption('} Display Map Alpha {')
 
 # sprite = pygame.image.load('losange.png')
