@@ -54,9 +54,9 @@ class Unit:
 		elif team == "Meya": self.sprite = listSprite[1]
 
 		(xTile, yTile) = posTile
-		# self.x = (xTile // 2) + (self.sprite.get_width() // 2)
-		# self.y = (yTile // 2) + (self.sprite.get_height() // 2)
-		self.pos = ((xTile // 2) + (self.sprite.get_width() // 2), (yTile // 2) + (self.sprite.get_height() // 2))
+		self.x = xTile + 13
+		self.y = yTile + 13
+		self.pos = (self.x, self.y)
 
 		self.team = team
 		self.life = life

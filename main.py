@@ -16,7 +16,7 @@ pygame.display.set_caption('} Display Map Beta {')
 tileset = pygame.image.load('Tileset.png')
 tilesTile = [tileset.subsurface(0,0, 50,50), tileset.subsurface(50,0, 50,50), tileset.subsurface(100,0, 50,50), tileset.subsurface(150,0, 50,50)]
 tilesetAlien = pygame.image.load('TilesetAliens.png')
-tilesAlien = [tilesetAlien.subsurface(0,0, 50,50), tilesetAlien.subsurface(50,0, 50,50)]
+tilesAlien = [tilesetAlien.subsurface(0,0, 25,25), tilesetAlien.subsurface(25,0, 25,25)]
 invImage = tileset.subsurface(0,50, 200,50)
 invSelectImg = tileset.subsurface(0,100, 50,50)
 selectImg = tileset.subsurface(50,100, 50,50)
@@ -46,7 +46,10 @@ while user == True:
 
 		if event.type == MOUSEBUTTONUP:
 
-			createArmy(Window, tilesAlien, Tile.tiles[0], "Meya")
+			i=0
+			for coord in Tile.tilesCoords:
+				if coord == Selector.pos: createArmy(Window, tilesAlien, Tile.tiles[i], "Meya")
+				i += 1
 
 	Window.fill((81,91,90))
 
