@@ -18,6 +18,7 @@ class Tile:
 			if team == "Neutral": self.sprite = listSprite[0]
 			elif team == "Zeta": self.sprite = listSprite[1]
 			elif team == "Meya": self.sprite = listSprite[2]
+			self.listSprite = listSprite
 
 			self.selected = selected # Status of the Tile, selected or not
 			self.team = team         # To which team belongs the Tile
@@ -34,6 +35,14 @@ class Tile:
 			self.pos = posTile
 			Tile.external.append(self)
 
+	def changeTeam(self, team):
+
+		self.team = team
+		if team == "Neutral": self.sprite = self.listSprite[0]
+		elif team == "Zeta": self.sprite = self.listSprite[1]
+		elif team == "Meya": self.sprite = self.listSprite[2]
+		self.occup = True
+
 class Unit:
 
 	length = 0
@@ -45,8 +54,9 @@ class Unit:
 		elif team == "Meya": self.sprite = listSprite[1]
 
 		(xTile, yTile) = posTile
-		self.x = (xTile // 2) + (self.sprite.get_width() // 2)
-		self.y = (yTile // 2) + (self.sprite.get_height() // 2)
+		# self.x = (xTile // 2) + (self.sprite.get_width() // 2)
+		# self.y = (yTile // 2) + (self.sprite.get_height() // 2)
+		self.pos = ((xTile // 2) + (self.sprite.get_width() // 2), (yTile // 2) + (self.sprite.get_height() // 2))
 
 		self.team = team
 		self.life = life
