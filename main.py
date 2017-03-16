@@ -22,10 +22,12 @@ invSelectImg = tileset.subsurface(0,100, 50,50)
 selectImg = tileset.subsurface(50,100, 50,50)
 
 Selector(selectImg, (0,0))
-Inv(invImage, invSelectImg, (100,400))
+Inv = Inv(invImage, invSelectImg, (100,400))
 
 generateMap(Window, tilesTile)
 displayMap(Window)
+
+actualTeam = "Zeta"
 
 user = True
 while user == True:
@@ -44,11 +46,22 @@ while user == True:
 				if (x + 10) <= xM <= (x + 40) and (y + 10) <= yM <= (y + 40):
 					Selector.pos = (x,y)
 
+		if event.type == KEYUP:
+
+			if event.key == K_SPACE:
+				if actualTeam == "Zeta": actualTeam = "Meya"
+				else: actualTeam = "Zeta"
+
+			if event.key == K_q: Inv.moveSelector(0)
+			if event.key == K_w: Inv.moveSelector(1)
+			if event.key == K_e: Inv.moveSelector(2)
+			if event.key == K_r: Inv.moveSelector(3)
+
 		if event.type == MOUSEBUTTONUP:
 
 			i=0
 			for coord in Tile.tilesCoords:
-				if coord == Selector.pos: createArmy(Window, tilesAlien, Tile.tiles[i], "Meya")
+				if coord == Selector.pos: createArmy(Window, tilesAlien, Tile.tiles[i], actualTeam)
 				i += 1
 
 	Window.fill((81,91,90))

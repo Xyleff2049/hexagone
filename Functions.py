@@ -55,7 +55,7 @@ def createArmy(window, listSprite, Tile, team, life=20):
 
 	if Tile.occup == False: 
 
-		Unit(listSprite, Tile, Tile.pos, team=team, life=life)
+		Unit(listSprite, Tile, team=team, life=life)
 		Tile.changeTeam(team)
 
 def displayMap(window, tileset=True, units=True, select=True, inv=True):

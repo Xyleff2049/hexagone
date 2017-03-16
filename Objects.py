@@ -2,8 +2,6 @@
 
 class Tile:
 
-	tileWidth = 0      # Tile width
-	tileHeight = 0     # Tile height
 	length = 0         # Number of objects
 	tiles = []         # List of all objects
 	tilesCoords = []   # List of coords of objects
@@ -19,6 +17,9 @@ class Tile:
 			elif team == "Zeta": self.sprite = listSprite[1]
 			elif team == "Meya": self.sprite = listSprite[2]
 			self.listSprite = listSprite
+
+			self.width = self.sprite.get_width()
+			self.height = self.sprite.get_height()
 
 			self.selected = selected # Status of the Tile, selected or not
 			self.team = team         # To which team belongs the Tile
@@ -48,14 +49,14 @@ class Unit:
 	length = 0
 	units = [] # List of all objects
 
-	def __init__(self, listSprite, Tile, posTile, team="", life=20):
+	def __init__(self, listSprite, aTile, team="", life=20):
 
 		if team == "Zeta": self.sprite = listSprite[0]
 		elif team == "Meya": self.sprite = listSprite[1]
 
-		(xTile, yTile) = posTile
-		self.x = xTile + 13
-		self.y = yTile + 13
+		(xTile, yTile) = aTile.pos
+		self.x = xTile + (aTile.width // 2 - self.sprite.get_width() // 2)
+		self.y = yTile + (aTile.height // 2 - self.sprite.get_height() // 2)
 		self.pos = (self.x, self.y)
 
 		self.team = team
@@ -92,7 +93,7 @@ class Inv:
 
 		Inv.stuff = listStuff
 
-	def moveSelector(case):
+	def moveSelector(self, case):
 
-		Inv.posSelect[0] = Inv.posInv[0] + (step * case)
-		Inv.posSelect[1] = Inv.posInv[1] + (step * case)
+		(xInv, yInv) = Inv.posInv
+		Inv.posSelect = (xInv + (self.step * case), yInv)
