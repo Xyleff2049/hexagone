@@ -8,9 +8,9 @@ import pygame
 # { Inits } #
 pygame.init()
 pygame.display.init()
-pygame.key.set_repeat(150,150)
+pygame.key.set_repeat(100,100)
 
-Window = pygame.display.set_mode((400,450))
+Window = pygame.display.set_mode((800,600))
 pygame.display.set_caption('} Display Map Beta {')
 
 tileset = pygame.image.load('Tileset.png')
@@ -22,7 +22,7 @@ invSelectImg = tileset.subsurface(0,100, 50,50)
 selectImg = tileset.subsurface(50,100, 50,50)
 
 Selector(selectImg, (0,0))
-Inv = Inv(invImage, invSelectImg, (100,400))
+Inv = Inv(Window, invImage, invSelectImg)
 
 generateMap(Window, tilesTile)
 displayMap(Window)
@@ -47,6 +47,8 @@ while user == True:
 					Selector.pos = (x,y)
 
 		if event.type == KEYUP:
+
+			if event.key == K_F5: pygame.image.save(Window, 'screen.png')
 
 			if event.key == K_SPACE:
 				if actualTeam == "Zeta": actualTeam = "Meya"

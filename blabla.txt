@@ -3,3 +3,5 @@ elle aurait comme fonction la generation, l'affichage des différents éléments
 dans une seule fonction etc ...
 
 Sprite des units en 25x25
+
+Ajouter le changement de team des cases

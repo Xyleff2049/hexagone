@@ -84,11 +84,11 @@ class Inv:
 	step = 0
 	stuff = []
 
-	def __init__(self, spriteInv, spriteSelect, posInv, step=50, listStuff=[]):
+	def __init__(self, Surface, spriteInv, spriteSelect, step=50, listStuff=[]):
 
 		Inv.spriteInv = spriteInv
 		Inv.spriteSelect = spriteSelect
-		Inv.posInv = Inv.posSelect = posInv
+		Inv.posInv = Inv.posSelect = (Surface.get_width() // 2 - spriteInv.get_width() // 2, Surface.get_height() - 50)
 		Inv.step = step
 
 		Inv.stuff = listStuff
