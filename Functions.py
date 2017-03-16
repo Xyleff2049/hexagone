@@ -37,31 +37,41 @@ def generateMap(Surface, listSprite):
 
 		if evenLine == False:
 			for x in range(x, maxX, spriteWidth):
-				if 0 <= x <= 360 and 0 <= y <= 360: Tile(listSprite, (x,y), team="Neutral")
+				if 0 <= x <= (maxX - 40) and 0 <= y <= (maxY - 90): Tile(listSprite, (x,y), team="Neutral")
 				else: Tile(listSprite, (x,y), external=True)
 			x = -spriteWidth//2
 			evenLine = True
 
 		else:
 			for x in range(x, maxX, spriteWidth):
-				if 0 <= x <= 360 and 0 <= y <= 360: Tile(listSprite, (x,y), team="Neutral")
+				if 0 <= x <= (maxX - 40) and 0 <= y <= (maxY - 90): Tile(listSprite, (x,y), team="Neutral")
 				else: Tile(listSprite, (x,y), external=True)
 			x = 0
 			evenLine = False
 
 	wipMap.displayBar(2)
 
-def display(window, tileset=True, select=True, inv=True):
+def createArmy(window, listSprite, Tile, team, life=20):
+
+	if Tile.occup == False: 
+
+		Unit(listSprite, Tile, team=team, life=life)
+		Tile.changeTeam(team)
+
+def displayMap(window, tileset=True, units=True, select=True, inv=True):
 
 	if tileset == True:
 
-		for tile in Tile.tiles: window.blit(tile.sprite, (tile.pos))
+		for tile in Tile.tiles: window.blit(tile.sprite, tile.pos)
 
-		for tile in Tile.external: window.blit(tile.sprite, (tile.pos))
+		for tile in Tile.external: window.blit(tile.sprite, tile.pos)
+
+	if units == True:
+
+		for entity in Unit.units: window.blit(entity.sprite, entity.pos)
 
 	if select == True: window.blit(Selector.sprite, Selector.pos)
 
 	if inv == True:
 		window.blit(Inv.spriteInv, Inv.posInv)
 		window.blit(Inv.spriteSelect, Inv.posSelect)
-
