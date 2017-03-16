@@ -58,6 +58,7 @@ while user == True:
 			if event.key == K_w: Inv.moveSelector(1)
 			if event.key == K_e: Inv.moveSelector(2)
 			if event.key == K_r: Inv.moveSelector(3)
+			if event.key == K_t: reset()
 
 		if event.type == MOUSEBUTTONUP:
 

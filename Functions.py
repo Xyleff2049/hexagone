@@ -75,3 +75,10 @@ def displayMap(window, tileset=True, units=True, select=True, inv=True):
 	if inv == True:
 		window.blit(Inv.spriteInv, Inv.posInv)
 		window.blit(Inv.spriteSelect, Inv.posSelect)
+
+def reset():
+	Unit.units = []
+	Unit.lenght = 0
+	for tile in Tile.tiles: 
+		tile.occup=False
+		tile.sprite = tile.listSprite[0]
