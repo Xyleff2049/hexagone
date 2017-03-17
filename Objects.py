@@ -39,10 +39,15 @@ class Tile:
 	def changeTeam(self, team):
 
 		self.team = team
-		if team == "Neutral": self.sprite = self.listSprite[0]
-		elif team == "Zeta": self.sprite = self.listSprite[1]
-		elif team == "Meya": self.sprite = self.listSprite[2]
-		self.occup = True
+		if team == "Neutral":
+			self.sprite = self.listSprite[0]
+			self.occup = False
+		elif team == "Zeta":
+			self.sprite = self.listSprite[1]
+			self.occup = True
+		elif team == "Meya":
+			self.sprite = self.listSprite[2]
+			self.occup = True
 
 class Unit:
 

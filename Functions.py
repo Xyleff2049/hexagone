@@ -58,6 +58,16 @@ def createArmy(window, listSprite, Tile, team, life=20):
 		Unit(listSprite, Tile, team=team, life=life)
 		Tile.changeTeam(team)
 
+def clearArmy(window, fill):
+
+	Unit.units = []
+	Unit.length = 0
+
+	for obj in Tile.tiles: obj.changeTeam("Neutral")
+
+	if isinstance(fill, str): window.blit(fill, (0,0))
+	if isinstance(fill, tuple): window.fill(fill)
+
 def displayMap(window, tileset=True, units=True, select=True, inv=True):
 
 	if tileset == True:
