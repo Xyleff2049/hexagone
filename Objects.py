@@ -10,8 +10,7 @@ class Tile:
 	def __init__(self, listSprite, posTile, external=False, selected=False, team="Neutral", occup=False):
 
 		if external == False:
-			(self.x, self.y) = posTile # Position (in px) of the Tile
-			self.pos = posTile
+			self.pos = (self.x, self.y) = posTile
 
 			if team == "Neutral": self.sprite = listSprite[0]
 			elif team == "Zeta": self.sprite = listSprite[1]
@@ -32,8 +31,7 @@ class Tile:
 
 		else:
 			self.sprite = listSprite[3] # External sprite
-			(self.x, self.y) = posTile  # Position (in px) of the Tile
-			self.pos = posTile
+			self.pos = (self.x, self.y) = posTile
 			Tile.external.append(self)
 
 	def changeTeam(self, team):

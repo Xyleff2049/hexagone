@@ -1,5 +1,4 @@
 # { Imports } #
-
 from pygame.locals import *
 from Functions import *
 from Objects import *
