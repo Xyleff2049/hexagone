@@ -2,6 +2,7 @@
 from pygame.locals import *
 from Functions import *
 from Objects import *
+from button import *
 import pygame
 
 # { Inits } #
@@ -22,6 +23,10 @@ selectImg = tileset.subsurface(50,100, 50,50)
 
 Selector(selectImg, (0,0))
 Inv = Inv(Window, invImage, invSelectImg)
+
+tilesetButton = pygame.image.load('tilesetButton.png')
+listButton = [tilesetButton.subsurface(0,0, 100,50), tilesetButton.subsurface(100,0, 100,50)]
+myButton = Button(Window, listButton, (0,0), 'quit()')
 
 generateMap(Window, tilesTile)
 displayMap(Window)
@@ -67,7 +72,10 @@ while user == True:
 				if coord == Selector.pos: createArmy(Window, tilesAlien, Tile.tiles[i], actualTeam)
 				i += 1
 
+		if event.type == MOUSEBUTTONUP or event.type == MOUSEBUTTONDOWN: click(event)
+
 	Window.fill((81,91,90))
 
 	displayMap(Window)
+	Button.displayButton()
 	pygame.display.flip()
