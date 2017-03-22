@@ -24,8 +24,6 @@ selectImg = tileset.subsurface(50,100, 50,50)
 Selector(selectImg, (0,0))
 Inv = Inv(Window, invImage, invSelectImg)
 
-generateMap(Window, tilesTile)
-displayMap(Window)
 
 actualTeam = "Zeta"
 
@@ -59,6 +57,9 @@ while user == True:
 			if event.key == K_e: Inv.moveSelector(2)
 			if event.key == K_r: Inv.moveSelector(3)
 			if event.key == K_t: reset()
+			if event.key == K_y: 
+				generateMap(Window, tilesTile)
+				displayMap(Window)
 
 		if event.type == MOUSEBUTTONUP:
 
