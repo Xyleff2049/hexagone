@@ -42,7 +42,7 @@ pygame.time.set_timer(USEREVENT, 120)
 
 tilesetChara = pygame.image.load('tilesetChara.png')
 listImgZeta = [[tilesetChara.subsurface(x,y,64,64) for x in range(0,192,64)] for y in range(0,256,64)]
-Zeta = Player(listImgZeta, clock)
+Zeta = Player(listImgZeta)
 
 playGroup = pygame.sprite.GroupSingle()
 playGroup.add(Zeta)
