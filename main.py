@@ -12,6 +12,8 @@ pygame.key.set_repeat(100,100)
 
 Window = pygame.display.set_mode((800,600))
 pygame.display.set_caption('} Display Map Beta {')
+# background = pygame.image.load('background.png')
+Window.fill((81,91,90))
 
 tileset = pygame.image.load('Tileset.png')
 tilesTile = [tileset.subsurface(0,0, 50,50), tileset.subsurface(50,0, 50,50), tileset.subsurface(100,0, 50,50), tileset.subsurface(150,0, 50,50)]
@@ -63,7 +65,7 @@ while user == True:
 			if event.key == K_e: Inv.moveSelector(2)
 			if event.key == K_r: Inv.moveSelector(3)
 
-			if event.key == K_k: clearArmy(Window, (81,91,90))
+			if event.key == K_k: clearArmy(Window, background)
 
 		if event.type == MOUSEBUTTONUP:
 
@@ -75,6 +77,7 @@ while user == True:
 		if event.type == MOUSEBUTTONUP or event.type == MOUSEBUTTONDOWN: click(event)
 
 	Window.fill((81,91,90))
+	# Window.blit(background, (0,0))
 
 	displayMap(Window)
 	Button.displayButton()

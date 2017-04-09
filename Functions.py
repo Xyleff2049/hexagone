@@ -65,8 +65,8 @@ def clearArmy(window, fill):
 
 	for obj in Tile.tiles: obj.changeTeam("Neutral")
 
-	if isinstance(fill, str): window.blit(fill, (0,0))
 	if isinstance(fill, tuple): window.fill(fill)
+	else: window.blit(fill, (0,0))
 
 def displayMap(window, tileset=True, units=True, select=True, inv=True):
 
