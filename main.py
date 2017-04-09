@@ -65,7 +65,7 @@ while user == True:
 			if event.key == K_e: Inv.moveSelector(2)
 			if event.key == K_r: Inv.moveSelector(3)
 
-			if event.key == K_k: clearArmy(Window, background)
+			if event.key == K_k: clearArmy(Window, (81,91,90))
 
 		if event.type == MOUSEBUTTONUP:
 
