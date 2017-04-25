@@ -69,7 +69,7 @@ while user == True:
 
 	keystate = pygame.key.get_pressed()
 
-	direction = [0,0]
+	# direction = [0,0]
 	direction[0] = keystate[K_RIGHT] - keystate[K_LEFT]
 	direction[1] = keystate[K_DOWN] - keystate[K_UP]
 	if direction != [0,0]: Zeta.move(direction)
